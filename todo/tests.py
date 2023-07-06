@@ -90,7 +90,7 @@ class TodoViewTestCase(TestCase):
         client = Client()
         response = client.get('/{}/'.format(task.pk))
 
-        self.assertEqual(response.status_code,20)
+        self.assertEqual(response.status_code,200)
         self.assertEqual(response.templates[0].name, 'todo/detail.html')
         self.assertEqual(response.context['task'], task)
 
