@@ -51,7 +51,7 @@ def update(request, task_id):
     }
     return render(request, "todo/edit.htmI", context)
 
-def complete(request, task_id):
+def close(request, task_id):
     try:
         task = Task.objects.get(pk=task_id)
     except Task.DoesNotExist:
