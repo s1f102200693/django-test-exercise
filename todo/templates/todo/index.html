@@ -31,17 +31,17 @@
       <a href="{% url 'index' %}?order=due">Sort by Due Date</a> |
       <a href="{% url 'index' %}?order=post">Sort by Posted Date</a>
     </div>
-
-    <div>
-        <form action="{% url 'index' %}" method="get">
-            <select name="status">
-                <option value="all">All</option>
-                <option value="not_completed">Not Completed</option>
-                <option value="completed">Completed</option>
-            </select>
-            <input type="submit" value="Filter">
-        </form>
-    </div>
+    
+    <form method="get">
+      <label for="statusSelect">Status:</label><br>
+      <select id="statusSelect" name="status">
+        <option value="all" {% if current_status == 'all' %}selected{% endif %}>All</option>
+        <option value="not_completed" {% if current_status == 'not_completed' %}selected{% endif %}>Not Completed</option>
+        <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>Completed</option>
+      </select>
+      <input type="submit" value="Filter">
+    </form>
+    <br>
 
     {% for task in tasks %}
     <div class="text">
@@ -49,7 +49,7 @@
       <ul>
         <li>Posted at: {{ task.posted_at }}</li>
         {% if task.due_at %} 
-        <li>Due at: {{ task.due_at }}</li>
+        <li>Due at: {% if task.due_at < now and not task.completed %}<span style="color:red">{{ task.due_at }}</span>{% else %}{{ task.due_at }}{% endif %}</li>
         {% endif %}
         {% if task.completed %} 
         <li>Status: Completed</li>

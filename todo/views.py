@@ -12,6 +12,7 @@ def index(request):
         task.save()
 
     status = request.GET.get('status', 'all')
+
     if status == 'completed':
         tasks = Task.objects.filter(completed=True)
     elif status == 'not_completed':
@@ -27,6 +28,7 @@ def index(request):
     context = {
         'tasks': tasks,
         'now': now(),
+        'current_status': status,
     }
     return render(request, 'todo/index.html', context)
 
