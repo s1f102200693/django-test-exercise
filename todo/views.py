@@ -50,4 +50,4 @@ def update(request, task_id):
     context = {
         'task': task
     }
-    return render(request, "todo/edit.htmI", context)
+    return render(request, "todo/edit.html", context)
