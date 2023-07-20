@@ -37,8 +37,12 @@
       <h2><a href="{% url 'detail' task.id %}">{{ task.title }}</a></h2>
       <ul>
         <li>Posted at: {{ task.posted_at }}</li>
-        {% if task.due_at %} 
-        <li>Due at: {{ task.due_at }}</li>
+        {% if task.due_at %}
+          {% if task.due_at < now and not task.completed %}
+            <li style="color: red;">Due at: {{ task.due_at }}</li>
+          {% else %}
+            <li>Due at: {{ task.due_at }}</li>
+          {% endif %}
         {% endif %}
         {% if task.completed %} 
         <li>Status: Completed</li>
